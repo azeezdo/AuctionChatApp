@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiddingService", "BiddingService\BiddingService.csproj", "{F3D160C0-0368-415F-A816-7882DA7B518B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{C8B8A9A3-26A3-4F61-AC52-955A4866A7A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{F3D160C0-0368-415F-A816-7882DA7B518B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3D160C0-0368-415F-A816-7882DA7B518B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3D160C0-0368-415F-A816-7882DA7B518B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B8A9A3-26A3-4F61-AC52-955A4866A7A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B8A9A3-26A3-4F61-AC52-955A4866A7A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B8A9A3-26A3-4F61-AC52-955A4866A7A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B8A9A3-26A3-4F61-AC52-955A4866A7A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
