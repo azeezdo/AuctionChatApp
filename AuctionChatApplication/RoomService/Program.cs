@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 // DbContext - SQL Server (connection string from configuration)
 builder.Services.AddDbContext<RoomDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RoomServiceDb")));
 
 // MassTransit (RabbitMQ)
 builder.Services.AddMassTransit(x =>
