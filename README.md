@@ -86,3 +86,4 @@ The area to be improve on when there is time
 - complete  all the services
 - Improve the security of the application
 - Adding caching
+- use clean architecture in all the  services
