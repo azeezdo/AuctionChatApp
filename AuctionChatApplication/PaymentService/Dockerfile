@@ -1,23 +1,13 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["PaymentService/PaymentService.csproj", "PaymentService/"]
-RUN dotnet restore "PaymentService/PaymentService.csproj"
-COPY . .
-WORKDIR "/src/PaymentService"
-RUN dotnet build "./PaymentService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+COPY . ./
+RUN dotnet restore "PaymentService.csproj"
+RUN dotnet publish "PaymentService.csproj" -c Release -o /app/publish
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./PaymentService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PaymentService.dll"]
+COPY --from=build /app/publish ./
+ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 80
+ENTRYPOINT ["dotnet","PaymentService.dll"]

@@ -1,23 +1,13 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["NotificationService/NotificationService.csproj", "NotificationService/"]
-RUN dotnet restore "NotificationService/NotificationService.csproj"
-COPY . .
-WORKDIR "/src/NotificationService"
-RUN dotnet build "./NotificationService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+COPY . ./
+RUN dotnet restore "NotificationService.csproj"
+RUN dotnet publish "NotificationService.csproj" -c Release -o /app/publish
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./NotificationService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "NotificationService.dll"]
+COPY --from=build /app/publish ./
+ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 80
+ENTRYPOINT ["dotnet","NotificationService.dll"]
